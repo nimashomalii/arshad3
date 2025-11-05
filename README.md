@@ -33,15 +33,15 @@ pip install -r requirements.txt
 
 If using GPU locally, install the appropriate `torch` build from `pytorch.org`.
 
-### Running (subject-independent)
+### Running (subject-independent, K-fold over subjects)
 
-Use `model_use/main.py` via the chooser:
+Use `mainProject.py` which accepts K as the 4th argument:
 
 ```bash
 python mainProject.py simpleNN valence binary 5
 ```
 
-Arguments: `model_name`, `emotion` (`valence` or `dominance`), `category` (`binary` or `5category`), `fold_idx` (integer tag for checkpoint/log names).
+Arguments: `model_name`, `emotion` (`valence` or `dominance`), `category` (`binary` or `5category`), `K` (number of folds across subjects).
 
 ### Running (subject-dependent, per-subject k-fold)
 

@@ -29,8 +29,6 @@ def prepar_dataset(test_person, over_lap, time_len , device, emotion, label_meth
     x_test = x_test.to(device)
     y_test = y_test.to(device)
 
-    extract_data.clean_extracted_data()
-
     return x_train, x_test, y_train, y_test
 class data : 
     def __init__(self , test_person, overlap, time_len, device, emotion, label_method, batch_size , data_type ) : 

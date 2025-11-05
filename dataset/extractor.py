@@ -25,6 +25,12 @@ class DataExtractor:
         :param file_id: شناسه فایل Google Drive.
         :param output_file_name: نام فایل RAR دانلود شده.
         """
+        # اگر قبلاً استخراج شده، دانلود/استخراج را رد کن
+        eeg_dir = os.path.join(self.extract_base_path, "EEG_data")
+        if os.path.isdir(eeg_dir) and len(os.listdir(eeg_dir)) > 0:
+            print(f"داده‌ها قبلاً در '{eeg_dir}' موجود هستند. دانلود/استخراج رد شد.")
+            return
+
         url = f"https://drive.google.com/uc?id={file_id}"
         output_path_rar = os.path.join(self.extract_base_path, output_file_name) # ذخیره rar داخل پوشه اصلی
 
