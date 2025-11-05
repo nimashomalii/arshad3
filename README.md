@@ -38,7 +38,7 @@ If using GPU locally, install the appropriate `torch` build from `pytorch.org`.
 Use `model_use/main.py` via the chooser:
 
 ```bash
-python -m model_use.main simpleNN valence binary 0
+python mainProject.py simpleNN valence binary 5
 ```
 
 Arguments: `model_name`, `emotion` (`valence` or `dominance`), `category` (`binary` or `5category`), `fold_idx` (integer tag for checkpoint/log names).
