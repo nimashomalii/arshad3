@@ -22,7 +22,7 @@ def create_model(test_person , emotion,category , fold_idx ) :
     my_dataset = data(test_person, overlap, time_len, device, emotion, category, batch_size, data_type)
     train_loader = my_dataset.train_data()
     test_loader = my_dataset.test_data()
-    Model = model([1792, 64, output_dim])  # معماری دلخواه
+    Model = model([1792, output_dim])  # معماری دلخواه
 
     # class weights for imbalance
     y_train = my_dataset.y_train
@@ -40,7 +40,7 @@ def create_model(test_person , emotion,category , fold_idx ) :
         label_method=category,
         optimizer_cls=torch.optim.Adam,
         lr=1e-3,
-        epochs=50,
+        epochs=30,
         loss_fn= torch.nn.CrossEntropyLoss(weight=weights.to(device)),
         checkpoint_path=f"eeg_checkpoint{fold_idx}.pth",
         log_path=f"eeg_log{fold_idx}.json", 
@@ -86,7 +86,7 @@ def subject_dependent_validation (emotion ,category, fold_idx , k=5) :
             test_loader = DataLoader(test_dataset ,batch_size , shuffle=False)
             train_dataset = TensorDataset(x_train , y_train )
             train_loader = DataLoader(train_dataset , batch_size,shuffle=True )
-            Model = model([1792, 64, output_dim])        
+            Model = model([1792, output_dim])        
             #____trainer_______#
             trainer = Trainer(
                 model=Model,
@@ -127,4 +127,5 @@ def subject_dependent_validation (emotion ,category, fold_idx , k=5) :
         accuracies_on_subjects['train'].append(np.mean(np.array(train_acc[-5:])))
         accuracies_on_subjects['test'].append(np.mean(np.array(val_acc[-5:])))
     return accuracies_on_subjects
+
 
