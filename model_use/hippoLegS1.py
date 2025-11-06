@@ -42,7 +42,7 @@ def create_model(test_person , emotion,category , fold_idx ) :
         device=device,
         label_method=category,
         optimizer_cls=torch.optim.Adam,
-        lr=5e-5,
+        lr=9e-5,
         epochs=25,
         loss_fn = criterion ,
         checkpoint_path=f"eeg_checkpoint{fold_idx }.pth",
@@ -89,7 +89,7 @@ def subject_dependent_validation (emotion ,category, fold_idx , k=5) :
             test_loader = DataLoader(test_dataset ,batch_size , shuffle=False)
             train_dataset = TensorDataset(x_train , y_train )
             train_loader = DataLoader(train_dataset , batch_size,shuffle=True )
-            x_dim , h_dim , seq_len ,c_dim = 14 , 32 , 128*time_len, 28
+            x_dim , h_dim , seq_len ,c_dim = 14 , 32 , 128*time_len, 32
             dim2 , dim3  = 64 , 16 
             Model = model( x_dim, h_dim, c_dim   ,seq_len,dim2 , dim3 , output_dim)# معماری دلخواه
             criterion = nn.CrossEntropyLoss()
@@ -102,7 +102,7 @@ def subject_dependent_validation (emotion ,category, fold_idx , k=5) :
                 device=device,
                 label_method=category,
                 optimizer_cls=torch.optim.Adam,
-                lr=5e-5,
+                lr=9e-5,
                 epochs=30,
                 loss_fn = criterion ,
                 verbose=True,
@@ -135,4 +135,5 @@ def subject_dependent_validation (emotion ,category, fold_idx , k=5) :
         accuracies_on_subjects['train'].append(np.mean(np.array(train_acc[-5:])))
         accuracies_on_subjects['test'].append(np.mean(np.array(val_acc[-5:])))
     return accuracies_on_subjects
+
 
