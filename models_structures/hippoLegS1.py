@@ -81,7 +81,7 @@ class RNN_block(nn.Module):
         u = x @ self.input_encoders + h_prev @ self.hidden_encoders + c_prev @ self.memory_encoders  # (batch,1)
 
         # 2️⃣ Memory update
-        c_next = c_prev + c_prev @ A_d.T + u @ B_d.T  # (batch, c_dim)
+        c_next =  c_prev @ A_d.T + u @ B_d.T  # (batch, c_dim)
 
         # 3️⃣ Hidden update
         xc = torch.cat([x, c_next], dim=1)
@@ -174,3 +174,4 @@ class model(nn.Module):
 
         x = self.fc3(x)
         return x
+
