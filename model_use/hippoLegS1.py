@@ -23,7 +23,7 @@ def create_model(test_person , emotion,category , fold_idx ) :
     train_loader = my_dataset.train_data()
     test_loader = my_dataset.test_data()
 
-    x_dim , h_dim , seq_len ,c_dim = 14 , 16, 128*time_len, 32
+    x_dim , h_dim , seq_len ,c_dim = 14 , 24, 128*time_len, 64
     dim2 , dim3  = 64 , 16 
     Model = model( x_dim, h_dim, c_dim   ,seq_len,dim2 , dim3 , output_dim)# معماری دلخواه
     # class weights for imbalance
@@ -53,13 +53,13 @@ def create_model(test_person , emotion,category , fold_idx ) :
 
 def subject_dependent_validation (emotion ,category, fold_idx , k=5) : 
     overlap = 0
-    time_len = 1
+    time_len = 2
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     if category == 'binary'  :
         output_dim = 2 
     elif category == '5category' :
         output_dim = 5
-    batch_size = 32
+    batch_size = 64
     data_type = torch.float32
     accuracies_on_subjects  = {
         'train' : [] , 
@@ -89,7 +89,7 @@ def subject_dependent_validation (emotion ,category, fold_idx , k=5) :
             test_loader = DataLoader(test_dataset ,batch_size , shuffle=False)
             train_dataset = TensorDataset(x_train , y_train )
             train_loader = DataLoader(train_dataset , batch_size,shuffle=True )
-            x_dim , h_dim , seq_len ,c_dim = 14 , 32 , 128*time_len, 32
+            x_dim , h_dim , seq_len ,c_dim = 14 , 24 , 128*time_len, 64
             dim2 , dim3  = 64 , 16 
             Model = model( x_dim, h_dim, c_dim   ,seq_len,dim2 , dim3 , output_dim)# معماری دلخواه
             criterion = nn.CrossEntropyLoss()
@@ -135,6 +135,7 @@ def subject_dependent_validation (emotion ,category, fold_idx , k=5) :
         accuracies_on_subjects['train'].append(np.mean(np.array(train_acc[-5:])))
         accuracies_on_subjects['test'].append(np.mean(np.array(val_acc[-5:])))
     return accuracies_on_subjects
+
 
 
 
