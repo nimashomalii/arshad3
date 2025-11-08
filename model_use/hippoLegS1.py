@@ -102,7 +102,7 @@ def subject_dependent_validation (emotion ,category, fold_idx , k=5) :
                 device=device,
                 label_method=category,
                 optimizer_cls=torch.optim.Adam,
-                lr=7e-5,
+                lr=4e-5,
                 epochs=30,
                 loss_fn = criterion ,
                 verbose=True,
@@ -135,6 +135,7 @@ def subject_dependent_validation (emotion ,category, fold_idx , k=5) :
         accuracies_on_subjects['train'].append(np.mean(np.array(train_acc[-5:])))
         accuracies_on_subjects['test'].append(np.mean(np.array(val_acc[-5:])))
     return accuracies_on_subjects
+
 
 
 
